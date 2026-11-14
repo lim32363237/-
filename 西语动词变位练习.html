@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>西语动词变位练习</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f2f5f9;--card:#fff;--ink:#14213d;--mute:#5b6679;--line:#d5dce6;--accent:#1f4fd8;--accent-ink:#fff;--ok:#12794a;--okbg:#e3f5ec;--bad:#b3261e;--badbg:#fdeceb;--irr:#b45309;--irrbg:#fff4e5}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1523;--card:#18203a;--ink:#e8ecf6;--mute:#9aa6bf;--line:#2c3757;--accent:#7a9bff;--accent-ink:#0f1523;--ok:#6fdca5;--okbg:#12362a;--bad:#ff9a92;--badbg:#3a1a1c;--irr:#f0b26b;--irrbg:#3a2a16}}
+:root[data-theme="dark"]{--bg:#0f1523;--card:#18203a;--ink:#e8ecf6;--mute:#9aa6bf;--line:#2c3757;--accent:#7a9bff;--accent-ink:#0f1523;--ok:#6fdca5;--okbg:#12362a;--bad:#ff9a92;--badbg:#3a1a1c;--irr:#f0b26b;--irrbg:#3a2a16}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",system-ui,sans-serif}
+main{max-width:520px;margin:0 auto;padding:20px 16px 40px}
+body[data-view="table"] main{max-width:1340px}
+h1{font-size:18px;margin:0 0 12px;font-weight:600}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin:0 0 16px;padding-bottom:3px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;width:auto;margin:0;min-height:38px;padding:7px 14px;border:1px solid var(--line);border-radius:99px;background:var(--card);color:var(--mute);font:inherit;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap}
+.tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.cnt{display:inline-block;font-size:11px;line-height:1.5;padding:0 6px;margin-left:3px;border-radius:99px;background:rgba(127,137,160,.22)}
+.tab[aria-selected="true"] .cnt{background:rgba(255,255,255,.25)}
+body[data-view="table"] .cnt{background:rgba(127,137,160,.22)}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.opts label{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border:1px solid var(--line);border-radius:99px;background:var(--card);font-size:14px;cursor:pointer}
+.opts input{accent-color:var(--accent)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 20px}
+.verb{font:600 40px/1.15 "Iowan Old Style",Georgia,"Songti SC",serif;margin:0}
+.zh{color:var(--mute);margin:2px 0 14px}
+.zh b{font-weight:400;border:1px solid var(--line);border-radius:6px;padding:0 6px;margin-left:6px;font-size:13px}
+.ask{font-size:18px;margin:0 0 14px}
+.ask em{font-style:normal;font-weight:600;color:var(--accent)}
+.ask small{font-size:13px;color:var(--mute)}
+input[type=text]{width:100%;font:inherit;font-size:20px;padding:11px 14px;border:2px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);outline:none}
+input[type=text]:focus-visible{border-color:var(--accent)}
+button{font:inherit;margin-top:12px;width:100%;padding:11px;border:0;border-radius:10px;background:var(--accent);color:var(--accent-ink);font-weight:600;cursor:pointer}
+button:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.fb{margin-top:12px;padding:10px 14px;border-radius:10px}
+.fb.ok{background:var(--okbg);color:var(--ok)}
+.fb.bad{background:var(--badbg);color:var(--bad)}
+.fb strong{font-size:20px}
+.fb-note{display:block;font-size:12.5px;margin-top:2px;font-weight:400;opacity:.9}
+.score{margin-top:14px;color:var(--mute);font-size:14px;text-align:center}
+.sub{margin:0 0 10px;color:var(--mute);font-size:13px}
+.sub b{color:var(--ink)}
+/* 错题本 */
+.mk-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.mk-stat{margin:0;font-size:14px;color:var(--mute)}
+.mk-stat b{color:var(--ink)}
+.mk{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.mk-head{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.mk-verb{font:600 22px/1.2 "Iowan Old Style",Georgia,"Songti SC",serif}
+.mk-zh{color:var(--mute);font-size:14px}
+.mk-badge{margin-left:auto;font-size:12px;color:var(--bad);background:var(--badbg);border-radius:99px;padding:2px 9px;white-space:nowrap}
+.mk-q{margin:8px 0 2px;font-size:15px}
+.mk-ans{margin:0;font-size:14px;color:var(--mute)}
+.mk-ans b{color:var(--ink);font-size:17px}
+.mk-wrong{margin:6px 0 0;font-size:13px;color:var(--mute)}
+.wtag{display:inline-block;margin:3px 4px 0 0;padding:0 8px;border-radius:6px;background:var(--badbg);color:var(--bad);font-size:13px}
+.wtag i{font-style:normal;opacity:.8;margin-left:3px;font-size:12px}
+.mk-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:10px}
+.mk-meta{font-size:12px;color:var(--mute)}
+.mk-actions{display:flex;gap:6px}
+.mini{width:auto;margin:0;padding:4px 11px;font-size:13px;font-weight:500;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.mini.danger{color:var(--bad)}
+.ghost{width:auto;margin:10px 0 0;padding:8px 16px;background:transparent;border:1px solid var(--line);color:var(--ink);font-weight:500}
+.empty{text-align:center;padding:26px 10px;color:var(--mute)}
+.empty p{margin:0 0 6px}
+.empty b{color:var(--ink)}
+/* 变位总表 */
+.legend{margin:0 0 6px;font-size:12.5px;line-height:1.6;color:var(--mute)}
+.legend .irr{color:var(--irr);font-weight:600}
+.sec{margin:26px 0 0}
+.sec h2{font-size:16px;margin:0 0 2px;font-weight:600}
+.sec h2 span{color:var(--mute);font-weight:400;font-size:13px}
+.sec > p{margin:0 0 10px;font-size:13px;color:var(--mute)}
+.tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--card);border:1px solid var(--line);border-radius:12px}
+table.t{min-width:1180px;width:100%;border-collapse:collapse;font-size:12.5px;line-height:1.5}
+.t th,.t td{padding:8px 10px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line);border-right:1px solid var(--line)}
+.t thead th{background:var(--bg);color:var(--mute);font-size:12px;font-weight:600;white-space:nowrap}
+.t tbody tr:last-child td{border-bottom:0}
+.t tr > *:last-child{border-right:0}
+.t th:first-child,.t td:first-child{position:sticky;left:0;z-index:1;background:var(--card);box-shadow:1px 0 0 var(--line)}
+.t thead th:first-child{background:var(--bg);z-index:2}
+.t th:nth-child(1),.t td:nth-child(1){width:94px;white-space:nowrap}
+.t th:nth-child(2),.t td:nth-child(2){width:112px}
+.t th:nth-child(3),.t td:nth-child(3){width:196px}
+.t th:nth-child(n+4),.t td:nth-child(n+4){width:132px}
+.t td:first-child b{font:600 15px/1.3 "Iowan Old Style",Georgia,"Songti SC",serif}
+.cell span{display:block;white-space:nowrap}
+.cell .irr{color:var(--irr);font-weight:600}
+.cell .nul{color:var(--mute);opacity:.45}
+.chip{display:inline-block;margin:0 3px 3px 0;padding:0 7px;border:1px solid var(--line);border-radius:99px;font-size:11.5px;line-height:1.7;color:var(--mute);white-space:nowrap}
+.chip.irr{color:var(--irr);border-color:var(--irrbg);background:var(--irrbg)}
+.tags-note{display:block;margin-top:3px;font-size:11.5px;line-height:1.45;color:var(--mute)}
+table.t.types{min-width:800px}
+table.t.types th:nth-child(1),table.t.types td:nth-child(1){width:112px}
+table.t.types th:nth-child(2),table.t.types td:nth-child(2){width:96px}
+table.t.types th:nth-child(3),table.t.types td:nth-child(3){width:auto}
+table.t.types th:nth-child(4),table.t.types td:nth-child(4){width:200px}
+footer{margin-top:28px;color:var(--mute);font-size:12px;line-height:1.5}
+footer a{color:inherit}
+[hidden]{display:none !important}
+.nowrap{white-space:nowrap}
+</style>
+</head>
+<body>
+<main>
+<h1>西语动词变位练习</h1>
+<div class="tabs" role="tablist" aria-label="界面切换">
+<button class="tab" type="button" role="tab" data-view="practice" aria-selected="true">练习</button>
+<button class="tab" type="button" role="tab" data-view="mistakes" aria-selected="false">错题本<span class="cnt" id="tabCnt" hidden></span></button>
+<button class="tab" type="button" role="tab" data-view="drill" aria-selected="false">错题练习</button>
+<button class="tab" type="button" role="tab" data-view="table" aria-selected="false">变位总表</button>
+</div>
+
+<section class="panel" id="panel-practice" role="tabpanel" aria-label="练习">
+<div class="opts" id="opts"></div>
+<div class="card" id="quizPractice"></div>
+<p class="score" id="scorePractice"></p>
+</section>
+
+<section class="panel" id="panel-drill" role="tabpanel" aria-label="错题练习" hidden>
+<p class="sub">只从「错题本」抽题；答错累加错误次数，答对记一次答对，可回错题本手动移除。</p>
+<div class="card" id="quizDrill"></div>
+<p class="score" id="scoreDrill"></p>
+</section>
+
+<section class="panel" id="panel-mistakes" role="tabpanel" aria-label="错题本" hidden>
+<div id="mistakeList"></div>
+</section>
+
+<section class="panel" id="panel-table" role="tabpanel" aria-label="变位总表" hidden>
+<div id="tableRoot"></div>
+</section>
+
+<footer>变位数据来自 Fred Jehle 的西语动词数据库（经 <a href="https://github.com/miko3k/verbos">verbos</a> 整理），采用 CC BY-NC-SA 3.0 许可，仅限非商业使用。错题本保存在本机浏览器中。</footer>
+</main>
+<script>
+/* ================= 词库与基础常量 ================= */
+const V=[{"i":"ser","z":"是","r":false,"f":{"presente":["soy","eres","es","somos","sois","son"],"preterito":["fui","fuiste","fue","fuimos","fuisteis","fueron"],"imperfecto":["era","eras","era","éramos","erais","eran"],"futuro":["seré","serás","será","seremos","seréis","serán"],"afirmativo":[null,"sé","sea",null,"sed","sean"],"negativo":[null,"no seas","no sea",null,"no seáis","no sean"]}},{"i":"estar","z":"在；处于（状态）","r":false,"f":{"presente":["estoy","estás","está","estamos","estáis","están"],"preterito":["estuve","estuviste","estuvo","estuvimos","estuvisteis","estuvieron"],"imperfecto":["estaba","estabas","estaba","estábamos","estabais","estaban"],"futuro":["estaré","estarás","estará","estaremos","estaréis","estarán"],"afirmativo":[null,"está","esté",null,"estad","estén"],"negativo":[null,"no estés","no esté",null,"no estéis","no estén"]}},{"i":"tener","z":"有","r":false,"f":{"presente":["tengo","tienes","tiene","tenemos","tenéis","tienen"],"preterito":["tuve","tuviste","tuvo","tuvimos","tuvisteis","tuvieron"],"imperfecto":["tenía","tenías","tenía","teníamos","teníais","tenían"],"futuro":["tendré","tendrás","tendrá","tendremos","tendréis","tendrán"],"afirmativo":[null,"ten","tenga",null,"tened","tengan"],"negativo":[null,"no tengas","no tenga",null,"no tengáis","no tengan"]}},{"i":"hacer","z":"做；制作","r":false,"f":{"presente":["hago","haces","hace","hacemos","hacéis","hacen"],"preterito":["hice","hiciste","hizo","hicimos","hicisteis","hicieron"],"imperfecto":["hacía","hacías","hacía","hacíamos","hacíais","hacían"],"futuro":["haré","harás","hará","haremos","haréis","harán"],"afirmativo":[null,"haz","haga",null,"haced","hagan"],"negativo":[null,"no hagas","no haga",null,"no hagáis","no hagan"]}},{"i":"ir","z":"去","r":false,"f":{"presente":["voy","vas","va","vamos","vais","van"],"preterito":["fui","fuiste","fue","fuimos","fuisteis","fueron"],"imperfecto":["iba","ibas","iba","íbamos","ibais","iban"],"futuro":["iré","irás","irá","iremos","iréis","irán"],"afirmativo":[null,"ve","vaya",null,"id","vayan"],"negativo":[null,"no vayas","no vaya",null,"no vayáis","no vayan"]}},{"i":"poder","z":"能够","r":false,"f":{"presente":["puedo","puedes","puede","podemos","podéis","pueden"],"preterito":["pude","pudiste","pudo","pudimos","pudisteis","pudieron"],"imperfecto":["podía","podías","podía","podíamos","podíais","podían"],"futuro":["podré","podrás","podrá","podremos","podréis","podrán"],"afirmativo":[null,"puede","pueda",null,"poded","puedan"],"negativo":[null,"no puedas","no pueda",null,"no podáis","no puedan"]}},{"i":"decir","z":"说；告诉","r":false,"f":{"presente":["digo","dices","dice","decimos","decís","dicen"],"preterito":["dije","dijiste","dijo","dijimos","dijisteis","dijeron"],"imperfecto":["decía","decías","decía","decíamos","decíais","decían"],"futuro":["diré","dirás","dirá","diremos","diréis","dirán"],"afirmativo":[null,"di","diga",null,"decid","digan"],"negativo":[null,"no digas","no diga",null,"no digáis","no digan"]}},{"i":"ver","z":"看见","r":false,"f":{"presente":["veo","ves","ve","vemos","veis","ven"],"preterito":["vi","viste","vio","vimos","visteis","vieron"],"imperfecto":["veía","veías","veía","veíamos","veíais","veían"],"futuro":["veré","verás","verá","veremos","veréis","verán"],"afirmativo":[null,"ve","vea",null,"ved","vean"],"negativo":[null,"no veas","no vea",null,"no veáis","no vean"]}},{"i":"dar","z":"给","r":false,"f":{"presente":["doy","das","da","damos","dais","dan"],"preterito":["di","diste","dio","dimos","disteis","dieron"],"imperfecto":["daba","dabas","daba","dábamos","dabais","daban"],"futuro":["daré","darás","dará","daremos","daréis","darán"],"afirmativo":[null,"da","dé",null,"dad","den"],"negativo":[null,"no des","no dé",null,"no deis","no den"]}},{"i":"saber","z":"知道","r":false,"f":{"presente":["sé","sabes","sabe","sabemos","sabéis","saben"],"preterito":["supe","supiste","supo","supimos","supisteis","supieron"],"imperfecto":["sabía","sabías","sabía","sabíamos","sabíais","sabían"],"futuro":["sabré","sabrás","sabrá","sabremos","sabréis","sabrán"],"afirmativo":[null,"sabe","sepa",null,"sabed","sepan"],"negativo":[null,"no sepas","no sepa",null,"no sepáis","no sepan"]}},{"i":"querer","z":"想要；爱","r":false,"f":{"presente":["quiero","quieres","quiere","queremos","queréis","quieren"],"preterito":["quise","quisiste","quiso","quisimos","quisisteis","quisieron"],"imperfecto":["quería","querías","quería","queríamos","queríais","querían"],"futuro":["querré","querrás","querrá","querremos","querréis","querrán"],"afirmativo":[null,"quiere","quiera",null,"quered","quieran"],"negativo":[null,"no quieras","no quiera",null,"no queráis","no quieran"]}},{"i":"llegar","z":"到达","r":false,"f":{"presente":["llego","llegas","llega","llegamos","llegáis","llegan"],"preterito":["llegué","llegaste","llegó","llegamos","llegasteis","llegaron"],"imperfecto":["llegaba","llegabas","llegaba","llegábamos","llegabais","llegaban"],"futuro":["llegaré","llegarás","llegará","llegaremos","llegaréis","llegarán"],"afirmativo":[null,"llega","llegue",null,"llegad","lleguen"],"negativo":[null,"no llegues","no llegue",null,"no lleguéis","no lleguen"]}},{"i":"pasar","z":"经过；发生","r":true,"f":{"presente":["paso","pasas","pasa","pasamos","pasáis","pasan"],"preterito":["pasé","pasaste","pasó","pasamos","pasasteis","pasaron"],"imperfecto":["pasaba","pasabas","pasaba","pasábamos","pasabais","pasaban"],"futuro":["pasaré","pasarás","pasará","pasaremos","pasaréis","pasarán"],"afirmativo":[null,"pasa","pase",null,"pasad","pasen"],"negativo":[null,"no pases","no pase",null,"no paséis","no pasen"]}},{"i":"deber","z":"应该；欠","r":true,"f":{"presente":["debo","debes","debe","debemos","debéis","deben"],"preterito":["debí","debiste","debió","debimos","debisteis","debieron"],"imperfecto":["debía","debías","debía","debíamos","debíais","debían"],"futuro":["deberé","deberás","deberá","deberemos","deberéis","deberán"],"afirmativo":[null,"debe","deba",null,"debed","deban"],"negativo":[null,"no debas","no deba",null,"no debáis","no deban"]}},{"i":"poner","z":"放置","r":false,"f":{"presente":["pongo","pones","pone","ponemos","ponéis","ponen"],"preterito":["puse","pusiste","puso","pusimos","pusisteis","pusieron"],"imperfecto":["ponía","ponías","ponía","poníamos","poníais","ponían"],"futuro":["pondré","pondrás","pondrá","pondremos","pondréis","pondrán"],"afirmativo":[null,"pon","ponga",null,"poned","pongan"],"negativo":[null,"no pongas","no ponga",null,"no pongáis","no pongan"]}},{"i":"parecer","z":"似乎","r":false,"f":{"presente":["parezco","pareces","parece","parecemos","parecéis","parecen"],"preterito":["parecí","pareciste","pareció","parecimos","parecisteis","parecieron"],"imperfecto":["parecía","parecías","parecía","parecíamos","parecíais","parecían"],"futuro":["pareceré","parecerás","parecerá","pareceremos","pareceréis","parecerán"],"afirmativo":[null,"parece","parezca",null,"pareced","parezcan"],"negativo":[null,"no parezcas","no parezca",null,"no parezcáis","no parezcan"]}},{"i":"creer","z":"相信；认为","r":false,"f":{"presente":["creo","crees","cree","creemos","creéis","creen"],"preterito":["creí","creíste","creyó","creímos","creísteis","creyeron"],"imperfecto":["creía","creías","creía","creíamos","creíais","creían"],"futuro":["creeré","creerás","creerá","creeremos","creeréis","creerán"],"afirmativo":[null,"cree","crea",null,"creed","crean"],"negativo":[null,"no creas","no crea",null,"no creáis","no crean"]}},{"i":"hablar","z":"说话","r":true,"f":{"presente":["hablo","hablas","habla","hablamos","habláis","hablan"],"preterito":["hablé","hablaste","habló","hablamos","hablasteis","hablaron"],"imperfecto":["hablaba","hablabas","hablaba","hablábamos","hablabais","hablaban"],"futuro":["hablaré","hablarás","hablará","hablaremos","hablaréis","hablarán"],"afirmativo":[null,"habla","hable",null,"hablad","hablen"],"negativo":[null,"no hables","no hable",null,"no habléis","no hablen"]}},{"i":"llevar","z":"带；穿戴","r":true,"f":{"presente":["llevo","llevas","lleva","llevamos","lleváis","llevan"],"preterito":["llevé","llevaste","llevó","llevamos","llevasteis","llevaron"],"imperfecto":["llevaba","llevabas","llevaba","llevábamos","llevabais","llevaban"],"futuro":["llevaré","llevarás","llevará","llevaremos","llevaréis","llevarán"],"afirmativo":[null,"lleva","lleve",null,"llevad","lleven"],"negativo":[null,"no lleves","no lleve",null,"no llevéis","no lleven"]}},{"i":"dejar","z":"让；留下","r":true,"f":{"presente":["dejo","dejas","deja","dejamos","dejáis","dejan"],"preterito":["dejé","dejaste","dejó","dejamos","dejasteis","dejaron"],"imperfecto":["dejaba","dejabas","dejaba","dejábamos","dejabais","dejaban"],"futuro":["dejaré","dejarás","dejará","dejaremos","dejaréis","dejarán"],"afirmativo":[null,"deja","deje",null,"dejad","dejen"],"negativo":[null,"no dejes","no deje",null,"no dejéis","no dejen"]}},{"i":"seguir","z":"跟随；继续","r":false,"f":{"presente":["sigo","sigues","sigue","seguimos","seguís","siguen"],"preterito":["seguí","seguiste","siguió","seguimos","seguisteis","siguieron"],"imperfecto":["seguía","seguías","seguía","seguíamos","seguíais","seguían"],"futuro":["seguiré","seguirás","seguirá","seguiremos","seguiréis","seguirán"],"afirmativo":[null,"sigue","siga",null,"seguid","sigan"],"negativo":[null,"no sigas","no siga",null,"no sigáis","no sigan"]}},{"i":"encontrar","z":"找到；遇见","r":false,"f":{"presente":["encuentro","encuentras","encuentra","encontramos","encontráis","encuentran"],"preterito":["encontré","encontraste","encontró","encontramos","encontrasteis","encontraron"],"imperfecto":["encontraba","encontrabas","encontraba","encontrábamos","encontrabais","encontraban"],"futuro":["encontraré","encontrarás","encontrará","encontraremos","encontraréis","encontrarán"],"afirmativo":[null,"encuentra","encuentre",null,"encontrad","encuentren"],"negativo":[null,"no encuentres","no encuentre",null,"no encontréis","no encuentren"]}},{"i":"llamar","z":"呼叫；称为","r":true,"f":{"presente":["llamo","llamas","llama","llamamos","llamáis","llaman"],"preterito":["llamé","llamaste","llamó","llamamos","llamasteis","llamaron"],"imperfecto":["llamaba","llamabas","llamaba","llamábamos","llamabais","llamaban"],"futuro":["llamaré","llamarás","llamará","llamaremos","llamaréis","llamarán"],"afirmativo":[null,"llama","llame",null,"llamad","llamen"],"negativo":[null,"no llames","no llame",null,"no llaméis","no llamen"]}},{"i":"venir","z":"来","r":false,"f":{"presente":["vengo","vienes","viene","venimos","venís","vienen"],"preterito":["vine","viniste","vino","vinimos","vinisteis","vinieron"],"imperfecto":["venía","venías","venía","veníamos","veníais","venían"],"futuro":["vendré","vendrás","vendrá","vendremos","vendréis","vendrán"],"afirmativo":[null,"ven","venga",null,"venid","vengan"],"negativo":[null,"no vengas","no venga",null,"no vengáis","no vengan"]}},{"i":"pensar","z":"思考；想","r":false,"f":{"presente":["pienso","piensas","piensa","pensamos","pensáis","piensan"],"preterito":["pensé","pensaste","pensó","pensamos","pensasteis","pensaron"],"imperfecto":["pensaba","pensabas","pensaba","pensábamos","pensabais","pensaban"],"futuro":["pensaré","pensarás","pensará","pensaremos","pensaréis","pensarán"],"afirmativo":[null,"piensa","piense",null,"pensad","piensen"],"negativo":[null,"no pienses","no piense",null,"no penséis","no piensen"]}},{"i":"salir","z":"出去；离开","r":false,"f":{"presente":["salgo","sales","sale","salimos","salís","salen"],"preterito":["salí","saliste","salió","salimos","salisteis","salieron"],"imperfecto":["salía","salías","salía","salíamos","salíais","salían"],"futuro":["saldré","saldrás","saldrá","saldremos","saldréis","saldrán"],"afirmativo":[null,"sal","salga",null,"salid","salgan"],"negativo":[null,"no salgas","no salga",null,"no salgáis","no salgan"]}},{"i":"volver","z":"返回","r":false,"f":{"presente":["vuelvo","vuelves","vuelve","volvemos","volvéis","vuelven"],"preterito":["volví","volviste","volvió","volvimos","volvisteis","volvieron"],"imperfecto":["volvía","volvías","volvía","volvíamos","volvíais","volvían"],"futuro":["volveré","volverás","volverá","volveremos","volveréis","volverán"],"afirmativo":[null,"vuelve","vuelva",null,"volved","vuelvan"],"negativo":[null,"no vuelvas","no vuelva",null,"no volváis","no vuelvan"]}},{"i":"tomar","z":"拿；喝；乘","r":true,"f":{"presente":["tomo","tomas","toma","tomamos","tomáis","toman"],"preterito":["tomé","tomaste","tomó","tomamos","tomasteis","tomaron"],"imperfecto":["tomaba","tomabas","tomaba","tomábamos","tomabais","tomaban"],"futuro":["tomaré","tomarás","tomará","tomaremos","tomaréis","tomarán"],"afirmativo":[null,"toma","tome",null,"tomad","tomen"],"negativo":[null,"no tomes","no tome",null,"no toméis","no tomen"]}},{"i":"conocer","z":"认识；了解","r":false,"f":{"presente":["conozco","conoces","conoce","conocemos","conocéis","conocen"],"preterito":["conocí","conociste","conoció","conocimos","conocisteis","conocieron"],"imperfecto":["conocía","conocías","conocía","conocíamos","conocíais","conocían"],"futuro":["conoceré","conocerás","conocerá","conoceremos","conoceréis","conocerán"],"afirmativo":[null,"conoce","conozca",null,"conoced","conozcan"],"negativo":[null,"no conozcas","no conozca",null,"no conozcáis","no conozcan"]}},{"i":"vivir","z":"居住；生活","r":true,"f":{"presente":["vivo","vives","vive","vivimos","vivís","viven"],"preterito":["viví","viviste","vivió","vivimos","vivisteis","vivieron"],"imperfecto":["vivía","vivías","vivía","vivíamos","vivíais","vivían"],"futuro":["viviré","vivirás","vivirá","viviremos","viviréis","vivirán"],"afirmativo":[null,"vive","viva",null,"vivid","vivan"],"negativo":[null,"no vivas","no viva",null,"no viváis","no vivan"]}},{"i":"sentir","z":"感觉；遗憾","r":false,"f":{"presente":["siento","sientes","siente","sentimos","sentís","sienten"],"preterito":["sentí","sentiste","sintió","sentimos","sentisteis","sintieron"],"imperfecto":["sentía","sentías","sentía","sentíamos","sentíais","sentían"],"futuro":["sentiré","sentirás","sentirá","sentiremos","sentiréis","sentirán"],"afirmativo":[null,"siente","sienta",null,"sentid","sientan"],"negativo":[null,"no sientas","no sienta",null,"no sintáis","no sientan"]}},{"i":"mirar","z":"看；注视","r":true,"f":{"presente":["miro","miras","mira","miramos","miráis","miran"],"preterito":["miré","miraste","miró","miramos","mirasteis","miraron"],"imperfecto":["miraba","mirabas","miraba","mirábamos","mirabais","miraban"],"futuro":["miraré","mirarás","mirará","miraremos","miraréis","mirarán"],"afirmativo":[null,"mira","mire",null,"mirad","miren"],"negativo":[null,"no mires","no mire",null,"no miréis","no miren"]}},{"i":"contar","z":"数；讲述","r":false,"f":{"presente":["cuento","cuentas","cuenta","contamos","contáis","cuentan"],"preterito":["conté","contaste","contó","contamos","contasteis","contaron"],"imperfecto":["contaba","contabas","contaba","contábamos","contabais","contaban"],"futuro":["contaré","contarás","contará","contaremos","contaréis","contarán"],"afirmativo":[null,"cuenta","cuente",null,"contad","cuenten"],"negativo":[null,"no cuentes","no cuente",null,"no contéis","no cuenten"]}},{"i":"empezar","z":"开始","r":false,"f":{"presente":["empiezo","empiezas","empieza","empezamos","empezáis","empiezan"],"preterito":["empecé","empezaste","empezó","empezamos","empezasteis","empezaron"],"imperfecto":["empezaba","empezabas","empezaba","empezábamos","empezabais","empezaban"],"futuro":["empezaré","empezarás","empezará","empezaremos","empezaréis","empezarán"],"afirmativo":[null,"empieza","empiece",null,"empezad","empiecen"],"negativo":[null,"no empieces","no empiece",null,"no empecéis","no empiecen"]}},{"i":"esperar","z":"等待；希望","r":true,"f":{"presente":["espero","esperas","espera","esperamos","esperáis","esperan"],"preterito":["esperé","esperaste","esperó","esperamos","esperasteis","esperaron"],"imperfecto":["esperaba","esperabas","esperaba","esperábamos","esperabais","esperaban"],"futuro":["esperaré","esperarás","esperará","esperaremos","esperaréis","esperarán"],"afirmativo":[null,"espera","espere",null,"esperad","esperen"],"negativo":[null,"no esperes","no espere",null,"no esperéis","no esperen"]}},{"i":"buscar","z":"寻找","r":false,"f":{"presente":["busco","buscas","busca","buscamos","buscáis","buscan"],"preterito":["busqué","buscaste","buscó","buscamos","buscasteis","buscaron"],"imperfecto":["buscaba","buscabas","buscaba","buscábamos","buscabais","buscaban"],"futuro":["buscaré","buscarás","buscará","buscaremos","buscaréis","buscarán"],"afirmativo":[null,"busca","busque",null,"buscad","busquen"],"negativo":[null,"no busques","no busque",null,"no busquéis","no busquen"]}},{"i":"entrar","z":"进入","r":true,"f":{"presente":["entro","entras","entra","entramos","entráis","entran"],"preterito":["entré","entraste","entró","entramos","entrasteis","entraron"],"imperfecto":["entraba","entrabas","entraba","entrábamos","entrabais","entraban"],"futuro":["entraré","entrarás","entrará","entraremos","entraréis","entrarán"],"afirmativo":[null,"entra","entre",null,"entrad","entren"],"negativo":[null,"no entres","no entre",null,"no entréis","no entren"]}},{"i":"trabajar","z":"工作","r":true,"f":{"presente":["trabajo","trabajas","trabaja","trabajamos","trabajáis","trabajan"],"preterito":["trabajé","trabajaste","trabajó","trabajamos","trabajasteis","trabajaron"],"imperfecto":["trabajaba","trabajabas","trabajaba","trabajábamos","trabajabais","trabajaban"],"futuro":["trabajaré","trabajarás","trabajará","trabajaremos","trabajaréis","trabajarán"],"afirmativo":[null,"trabaja","trabaje",null,"trabajad","trabajen"],"negativo":[null,"no trabajes","no trabaje",null,"no trabajéis","no trabajen"]}},{"i":"escribir","z":"写","r":false,"f":{"presente":["escribo","escribes","escribe","escribimos","escribís","escriben"],"preterito":["escribí","escribiste","escribió","escribimos","escribisteis","escribieron"],"imperfecto":["escribía","escribías","escribía","escribíamos","escribíais","escribían"],"futuro":["escribiré","escribirás","escribirá","escribiremos","escribiréis","escribirán"],"afirmativo":[null,"escribe","escriba",null,"escribid","escriban"],"negativo":[null,"no escribas","no escriba",null,"no escribáis","no escriban"]}},{"i":"perder","z":"丢失；输","r":false,"f":{"presente":["pierdo","pierdes","pierde","perdemos","perdéis","pierden"],"preterito":["perdí","perdiste","perdió","perdimos","perdisteis","perdieron"],"imperfecto":["perdía","perdías","perdía","perdíamos","perdíais","perdían"],"futuro":["perderé","perderás","perderá","perderemos","perderéis","perderán"],"afirmativo":[null,"pierde","pierda",null,"perded","pierdan"],"negativo":[null,"no pierdas","no pierda",null,"no perdáis","no pierdan"]}},{"i":"comer","z":"吃","r":true,"f":{"presente":["como","comes","come","comemos","coméis","comen"],"preterito":["comí","comiste","comió","comimos","comisteis","comieron"],"imperfecto":["comía","comías","comía","comíamos","comíais","comían"],"futuro":["comeré","comerás","comerá","comeremos","comeréis","comerán"],"afirmativo":[null,"come","coma",null,"comed","coman"],"negativo":[null,"no comas","no coma",null,"no comáis","no coman"]}},{"i":"beber","z":"喝","r":true,"f":{"presente":["bebo","bebes","bebe","bebemos","bebéis","beben"],"preterito":["bebí","bebiste","bebió","bebimos","bebisteis","bebieron"],"imperfecto":["bebía","bebías","bebía","bebíamos","bebíais","bebían"],"futuro":["beberé","beberás","beberá","beberemos","beberéis","beberán"],"afirmativo":[null,"bebe","beba",null,"bebed","beban"],"negativo":[null,"no bebas","no beba",null,"no bebáis","no beban"]}},{"i":"abrir","z":"打开","r":false,"f":{"presente":["abro","abres","abre","abrimos","abrís","abren"],"preterito":["abrí","abriste","abrió","abrimos","abristeis","abrieron"],"imperfecto":["abría","abrías","abría","abríamos","abríais","abrían"],"futuro":["abriré","abrirás","abrirá","abriremos","abriréis","abrirán"],"afirmativo":[null,"abre","abra",null,"abrid","abran"],"negativo":[null,"no abras","no abra",null,"no abráis","no abran"]}},{"i":"aprender","z":"学习","r":true,"f":{"presente":["aprendo","aprendes","aprende","aprendemos","aprendéis","aprenden"],"preterito":["aprendí","aprendiste","aprendió","aprendimos","aprendisteis","aprendieron"],"imperfecto":["aprendía","aprendías","aprendía","aprendíamos","aprendíais","aprendían"],"futuro":["aprenderé","aprenderás","aprenderá","aprenderemos","aprenderéis","aprenderán"],"afirmativo":[null,"aprende","aprenda",null,"aprended","aprendan"],"negativo":[null,"no aprendas","no aprenda",null,"no aprendáis","no aprendan"]}}];
+const TENSES={presente:"现在时",preterito:"简单过去时",imperfecto:"过去未完成时",futuro:"将来时",afirmativo:"命令式（肯定）",negativo:"命令式（否定）"};
+const TENSE_KEYS=Object.keys(TENSES);
+const PERS=[["yo","我"],["tú","你"],["él / ella / usted","他 / 她 / 您"],["nosotros","我们"],["vosotros","你们（西班牙）"],["ellos / ellas / ustedes","他们 / 她们 / 您们"]];
+const VBY={};
+V.forEach(v=>{VBY[v.i]=v});
+
+/* 分类：g = 第几变位，irr = 是否不规则，types = 不规则类型（规则动词给 "规则"） */
+const CLS={
+ ser:{g:2,irr:1,types:["完全不规则","特殊过去时"],note:"soy · fui · era · sé"},
+ estar:{g:1,irr:1,types:["完全不规则","特殊过去时"],note:"estoy · estuve · esté"},
+ tener:{g:2,irr:1,types:["e→ie","-go","特殊过去时","特殊将来时"],note:"tengo · tuve · tendré · ten"},
+ hacer:{g:2,irr:1,types:["-go","特殊过去时","特殊将来时"],note:"hago · hice · haré · haz"},
+ ir:{g:3,irr:1,types:["完全不规则","特殊过去时"],note:"voy · fui · iba · ve"},
+ poder:{g:2,irr:1,types:["o→ue","特殊过去时","特殊将来时"],note:"puedo · pude · podré"},
+ decir:{g:3,irr:1,types:["e→i","-go","特殊过去时","特殊将来时"],note:"digo · dije · diré · di"},
+ ver:{g:2,irr:1,types:["完全不规则"],note:"veo · vi · veía · ve"},
+ dar:{g:1,irr:1,types:["完全不规则","特殊过去时"],note:"doy · di · dé"},
+ saber:{g:2,irr:1,types:["特殊过去时","特殊将来时"],note:"sé · supe · sabré · sepa"},
+ querer:{g:2,irr:1,types:["e→ie","特殊过去时","特殊将来时"],note:"quiero · quise · querré"},
+ llegar:{g:1,irr:1,types:["拼写变化"],note:"llegué · llegue（g→gu）"},
+ pasar:{g:1,irr:0,types:["规则"],note:""},
+ deber:{g:2,irr:0,types:["规则"],note:""},
+ poner:{g:2,irr:1,types:["-go","特殊过去时","特殊将来时"],note:"pongo · puse · pondré · pon"},
+ parecer:{g:2,irr:1,types:["-zco"],note:"parezco · parezca（c→zc）"},
+ creer:{g:2,irr:1,types:["拼写变化"],note:"creí · creíste · creyó · creyeron（重音与 y）"},
+ hablar:{g:1,irr:0,types:["规则"],note:""},
+ llevar:{g:1,irr:0,types:["规则"],note:""},
+ dejar:{g:1,irr:0,types:["规则"],note:""},
+ seguir:{g:3,irr:1,types:["e→i","拼写变化"],note:"sigo · siguió · siga（gu→g）"},
+ encontrar:{g:1,irr:1,types:["o→ue"],note:"encuentro · encuentre"},
+ llamar:{g:1,irr:0,types:["规则"],note:""},
+ venir:{g:3,irr:1,types:["e→ie","-go","特殊过去时","特殊将来时"],note:"vengo · vine · vendré · ven"},
+ pensar:{g:1,irr:1,types:["e→ie"],note:"pienso · piense"},
+ salir:{g:3,irr:1,types:["-go","特殊将来时"],note:"salgo · saldré · sal"},
+ volver:{g:2,irr:1,types:["o→ue"],note:"vuelvo · vuelva"},
+ tomar:{g:1,irr:0,types:["规则"],note:""},
+ conocer:{g:2,irr:1,types:["-zco"],note:"conozco · conozca（c→zc）"},
+ vivir:{g:3,irr:0,types:["规则"],note:""},
+ sentir:{g:3,irr:1,types:["e→ie","e→i"],note:"siento · sintió · sienta"},
+ mirar:{g:1,irr:0,types:["规则"],note:""},
+ contar:{g:1,irr:1,types:["o→ue"],note:"cuento · cuente"},
+ empezar:{g:1,irr:1,types:["e→ie","拼写变化"],note:"empiezo · empecé · empiece（z→c）"},
+ esperar:{g:1,irr:0,types:["规则"],note:""},
+ buscar:{g:1,irr:1,types:["拼写变化"],note:"busqué · busque（c→qu）"},
+ entrar:{g:1,irr:0,types:["规则"],note:""},
+ trabajar:{g:1,irr:0,types:["规则"],note:""},
+ escribir:{g:3,irr:0,types:["规则"],note:""},
+ perder:{g:2,irr:1,types:["e→ie"],note:"pierdo · pierda"},
+ comer:{g:2,irr:0,types:["规则"],note:""},
+ beber:{g:2,irr:0,types:["规则"],note:""},
+ abrir:{g:3,irr:0,types:["规则"],note:""},
+ aprender:{g:2,irr:0,types:["规则"],note:""}
+};
+const TYPE_ORDER=["完全不规则","e→ie","o→ue","e→i","-go","-zco","特殊过去时","特殊将来时","拼写变化"];
+const TYPE_DESC={
+ "完全不规则":"没有统一规律，整体记忆",
+ "e→ie":"重读时词根 e 变 ie（pensar → pienso）",
+ "o→ue":"重读时词根 o 变 ue（contar → cuento）",
+ "e→i":"重读时词根 e 变 i（decir → dices / dijo）",
+ "-go":"第一人称单数现在时加 -go（tener → tengo）",
+ "-zco":"-cer / -cir 动词第一人称变 -zco（parecer → parezco）",
+ "特殊过去时":"简单过去时用强变化词干（estar → estuve / estuviste）",
+ "特殊将来时":"将来时词干特殊（tener → tendré；salir → saldré）",
+ "拼写变化":"为保持原音或书写重音而改变拼写（llegué / busqué / empecé / siguió / creyó）"
+};
+
+/* ================= 规则变位生成（用于标出不规则形式） ================= */
+const ENDINGS={
+ ar:{pres:["o","as","a","amos","áis","an"],pret:["é","aste","ó","amos","asteis","aron"],imp:["aba","abas","aba","ábamos","abais","aban"],subj:["e","es","e","emos","éis","en"]},
+ er:{pres:["o","es","e","emos","éis","en"],pret:["í","iste","ió","imos","isteis","ieron"],imp:["ía","ías","ía","íamos","íais","ían"],subj:["a","as","a","amos","áis","an"]},
+ ir:{pres:["o","es","e","imos","ís","en"],pret:["í","iste","ió","imos","isteis","ieron"],imp:["ía","ías","ía","íamos","íais","ían"],subj:["a","as","a","amos","áis","an"]}
+};
+function regularForms(inf){
+  const kind=inf.slice(-2),stem=inf.slice(0,-2),e=ENDINGS[kind];
+  const pres=e.pres.map(x=>stem+x),pret=e.pret.map(x=>stem+x),imp=e.imp.map(x=>stem+x),
+        fut=["é","ás","á","emos","éis","án"].map(x=>inf+x),subj=e.subj.map(x=>stem+x);
+  return {presente:pres,preterito:pret,imperfecto:imp,futuro:fut,
+    afirmativo:[null,pres[2],subj[2],null,inf.slice(0,-1)+"d",subj[5]],
+    negativo:[null,"no "+subj[1],"no "+subj[2],null,"no "+subj[4],"no "+subj[5]]};
+}
+const DEV={};
+V.forEach(v=>{
+  const r=regularForms(v.i),d={};
+  TENSE_KEYS.forEach(t=>{d[t]=v.f[t].map((f,i)=>f!=null&&r[t][i]!==f)});
+  DEV[v.i]=d;
+});
+
+/* ================= 小工具 ================= */
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const norm=s=>s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim().replace(/\s+/g," ");
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const fmtTime=ts=>{
+  if(!ts) return "—";
+  const d=new Date(ts),p=x=>String(x).padStart(2,"0");
+  return `${d.getFullYear()}/${p(d.getMonth()+1)}/${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
+};
+
+/* ================= 本地存储：错题本 + 偏好 ================= */
+const MK_KEY="esverbs.mistakes.v1", PREF_KEY="esverbs.prefs.v1";
+let prefs={view:"practice",tenses:["presente"],vos:true};
+try{
+  const p=JSON.parse(localStorage.getItem(PREF_KEY)||"null");
+  if(p&&typeof p==="object"){
+    if(typeof p.view==="string") prefs.view=p.view;
+    if(Array.isArray(p.tenses)){const t=p.tenses.filter(x=>TENSE_KEYS.includes(x));if(t.length)prefs.tenses=t}
+    if(typeof p.vos==="boolean") prefs.vos=p.vos;
+  }
+}catch(e){}
+function savePrefs(){try{localStorage.setItem(PREF_KEY,JSON.stringify(prefs))}catch(e){}}
+
+let mistakes=[];
+function loadMistakes(){
+  try{
+    const raw=JSON.parse(localStorage.getItem(MK_KEY)||"[]");
+    if(!Array.isArray(raw)) return [];
+    return raw.filter(e=>e&&VBY[e.i]&&VBY[e.i].f[e.t]&&typeof e.p==="number"&&VBY[e.i].f[e.t][e.p]!=null)
+      .map(e=>({
+        key:e.i+"|"+e.t+"|"+e.p,i:e.i,t:e.t,p:e.p,
+        w:Array.isArray(e.w)?e.w.filter(x=>x&&typeof x.s==="string").map(x=>({s:x.s,n:Math.max(1,+x.n||1)})).slice(0,6):[],
+        n:Math.max(1,+e.n||1),ok:Math.max(0,+e.ok||0),last:+e.last||0
+      }));
+  }catch(e){return []}
+}
+function saveMistakes(){try{localStorage.setItem(MK_KEY,JSON.stringify(mistakes))}catch(e){}}
+mistakes=loadMistakes();
+const findMistake=key=>mistakes.find(m=>m.key===key);
+
+function recordWrong(q,typed){
+  const now=Date.now();
+  let e=findMistake(q.key);
+  if(!e){e={key:q.key,i:q.v.i,t:q.t,p:q.p,w:[],n:0,ok:0,last:now};mistakes.push(e)}
+  e.n++;e.last=now;
+  const raw=typed.trim().replace(/\s+/g," ");
+  const hit=e.w.find(x=>norm(x.s)===norm(raw));
+  if(hit){hit.n++;hit.s=raw}else{e.w.push({s:raw,n:1})}
+  e.w.sort((a,b)=>b.n-a.n);
+  if(e.w.length>6) e.w.length=6;
+  saveMistakes();
+}
+function recordRight(q){
+  const e=findMistake(q.key);
+  if(!e) return;
+  e.ok=(e.ok||0)+1;
+  saveMistakes();
+}
+function removeMistake(key){
+  const before=mistakes.length;
+  mistakes=mistakes.filter(m=>m.key!==key);
+  if(mistakes.length===before) return;
+  saveMistakes();
+  renderMistakes();refreshCount();drill.onNotebookChange();
+}
+function clearMistakes(){
+  mistakes=[];saveMistakes();renderMistakes();refreshCount();drill.onNotebookChange();
+}
+function refreshCount(){
+  const el=$("tabCnt");
+  el.textContent=mistakes.length?String(mistakes.length):"";
+  el.hidden=!mistakes.length;
+}
+
+/* ================= 题面模板与答题引擎 ================= */
+function quizMarkup(){
+  return `<div data-el="body">
+<p class="verb" data-el="inf"></p>
+<p class="zh" data-el="zh"></p>
+<p class="ask" data-el="ask"></p>
+<input type="text" data-el="ans" aria-label="输入变位形式" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="直接输入，不用打重音和 ñ；否定命令式可省略 no">
+<button type="button" data-el="go">检查</button>
+<div class="fb" data-el="fb" role="status" aria-live="polite" hidden></div>
+</div>
+<div class="empty" data-el="empty" hidden>
+<p><b>错题本还是空的</b></p>
+<p>先去「练习」做几道题，答错的题会自动收集到这里。</p>
+<button type="button" class="ghost" data-el="toPractice">去练习</button>
+</div>`;
+}
+
+function createQuiz(host,mode){
+  host.innerHTML=quizMarkup();
+  const el=n=>host.querySelector('[data-el="'+n+'"]');
+  const scoreEl=$(mode==="practice"?"scorePractice":"scoreDrill");
+  let cur=null,answered=false,n=0,right=0,total=0,retries=[],last="";
+
+  function practiceTenses(){
+    const list=[...$("opts").querySelectorAll("[data-t]:checked")].map(x=>x.dataset.t);
+    return list.length?list:["presente"];
+  }
+  function practiceVos(){const c=$("vos");return c?c.checked:true}
+
+  function makeRandom(){
+    const ts=practiceTenses(),ps=[0,1,2,3,5].concat(practiceVos()?[4]:[]);
+    let fbq=null;
+    for(let i=0;i<80;i++){
+      const v=pick(V),t=pick(ts),ok=ps.filter(j=>v.f[t][j]);
+      if(!ok.length) continue;
+      const p=pick(ok),key=v.i+"|"+t+"|"+p;
+      fbq={v,t,p,key};
+      if(key!==last) return fbq;
+    }
+    return fbq;
+  }
+  function validEntry(m){
+    const v=VBY[m.i];
+    return !!(v&&v.f[m.t]&&v.f[m.t][m.p]!=null);
+  }
+  function makeFromMistakes(){
+    const pool=mistakes.filter(validEntry);
+    if(!pool.length) return null;
+    const fresh=pool.filter(m=>m.key!==last);
+    const m=pick(fresh.length?fresh:pool);
+    return {v:VBY[m.i],t:m.t,p:m.p,key:m.key};
+  }
+  function setEmpty(b){
+    el("body").hidden=b;
+    el("empty").hidden=!b;
+    if(b) scoreEl.textContent="错题本共 0 题";
+  }
+  function updateScore(){
+    if(!scoreEl) return;
+    if(mode==="drill"){
+      if(!mistakes.length){scoreEl.textContent="错题本共 0 题";return}
+      scoreEl.textContent=`错题本共 ${mistakes.length} 题 · 本次答对 ${right} / ${total}`;
+    }else{
+      scoreEl.textContent=`答对 ${right} / ${total}`;
+    }
+  }
+  function show(q,focus=true){
+    cur=q;answered=false;n++;last=q.key;
+    const c=CLS[q.v.i];
+    el("inf").textContent=q.v.i;
+    el("zh").innerHTML=esc(q.v.z)+(c.irr?`<b title="${esc(c.types.join(" / "))}">不规则</b>`:"");
+    el("ask").innerHTML=`<em>${PERS[q.p][0]}</em><small>（${PERS[q.p][1]}）</small> <span class="nowrap">· ${TENSES[q.t]}</span>`;
+    el("ans").value="";el("fb").hidden=true;el("go").textContent="检查";
+    setEmpty(false);
+    if(focus) el("ans").focus();
+  }
+  function next(focus=true){
+    const r=retries.findIndex(x=>x.at<=n);
+    let q;
+    if(r>=0){q=retries.splice(r,1)[0].q}
+    else if(mode==="practice"){q=makeRandom()}
+    else{
+      q=makeFromMistakes();
+      if(!q){setEmpty(true);updateScore();return}
+    }
+    if(!q){setEmpty(true);updateScore();return}
+    show(q,focus);updateScore();
+  }
+  function check(){
+    if(!cur) return;
+    if(answered){next();return}
+    let typed=el("ans").value;
+    if(!typed.trim()) return;
+    if(cur.t==="negativo"&&!/^no\s/i.test(typed.trim())) typed="no "+typed.trim();
+    const correct=cur.v.f[cur.t][cur.p];
+    const good=norm(typed)===norm(correct);
+    answered=true;total++;
+    const fb=el("fb");
+    if(good){
+      right++;recordRight(cur);
+      const exact=typed.trim().toLowerCase()===correct.toLowerCase();
+      const entry=mode==="drill"?findMistake(cur.key):null;
+      fb.className="fb ok";
+      fb.innerHTML=(exact?`✓ <strong>${esc(correct)}</strong>`:`✓ 正确，完整写法：<strong>${esc(correct)}</strong>`)
+        +(entry?`<span class="fb-note">该题累计答对 ${entry.ok} 次；掌握后可回错题本移除。</span>`:"");
+    }else{
+      recordWrong(cur,typed);
+      fb.className="fb bad";
+      fb.innerHTML=`✗ 正确答案：<strong>${esc(correct)}</strong><span class="fb-note">已记入错题本</span>`;
+      retries.push({q:cur,at:n+3});
+      if(retries.length>40) retries.shift();
+    }
+    fb.hidden=false;
+    el("go").textContent="下一题";
+    updateScore();refreshCount();
+    if(!$("panel-mistakes").hidden) renderMistakes();
+  }
+  function jumpTo(m){
+    const q={v:VBY[m.i],t:m.t,p:m.p,key:m.key};
+    showView("drill",{sync:false});
+    retries=[];
+    show(q);
+    updateScore();
+  }
+  function onNotebookChange(){
+    if(mode!=="drill") return;
+    retries=retries.filter(x=>mistakes.some(m=>m.key===x.q.key));
+    if(!mistakes.length){cur=null;setEmpty(true);updateScore();return}
+    if(cur&&!findMistake(cur.key)){next(false);return}
+    if(!cur){next(false);return}
+    updateScore();
+  }
+
+  el("go").addEventListener("click",check);
+  el("ans").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();check()}});
+  el("toPractice").addEventListener("click",()=>showView("practice"));
+
+  return {next,jumpTo,setEmpty,updateScore,onNotebookChange,
+    current:()=>cur,clearRetries:()=>{retries=[]}};
+}
+
+const practiceQuiz=createQuiz($("quizPractice"),"practice");
+const drill=createQuiz($("quizDrill"),"drill");
+
+/* ================= 练习选项 ================= */
+const optsEl=$("opts");
+TENSE_KEYS.forEach(k=>{
+  optsEl.insertAdjacentHTML("beforeend",`<label><input type="checkbox" data-t="${k}"${prefs.tenses.includes(k)?" checked":""}>${TENSES[k]}</label>`);
+});
+optsEl.insertAdjacentHTML("beforeend",`<label><input type="checkbox" id="vos"${prefs.vos?" checked":""}>含 vosotros</label>`);
+optsEl.addEventListener("change",()=>{
+  if(!optsEl.querySelector("[data-t]:checked")) optsEl.querySelector('[data-t="presente"]').checked=true;
+  prefs.tenses=[...optsEl.querySelectorAll("[data-t]:checked")].map(x=>x.dataset.t);
+  prefs.vos=$("vos").checked;
+  savePrefs();
+  practiceQuiz.clearRetries();
+  practiceQuiz.next();
+});
+
+/* ================= 错题本渲染 ================= */
+function renderMistakes(){
+  const root=$("mistakeList");
+  const list=[...mistakes].sort((a,b)=>b.n-a.n||b.last-a.last);
+  if(!list.length){
+    root.innerHTML=`<div class="empty"><p><b>还没有错题</b></p><p>去「练习」做几道题，答错的题会自动记录在这里。</p><button type="button" class="ghost" data-act="goPractice">去练习</button></div>`;
+    return;
+  }
+  const verbs=new Set(list.map(m=>m.i)).size;
+  const errs=list.reduce((s,m)=>s+m.n,0);
+  root.innerHTML=`<div class="mk-top">
+<p class="mk-stat">共 <b>${list.length}</b> 题 · 涉及 <b>${verbs}</b> 个动词 · 累计错误 <b>${errs}</b> 次</p>
+<button type="button" class="mini danger" data-act="clearAll">全部清空</button>
+</div>`+list.map(m=>{
+    const v=VBY[m.i],correct=v.f[m.t][m.p];
+    const wrongs=m.w.map(x=>`<span class="wtag">${esc(x.s)}<i>×${x.n}</i></span>`).join("");
+    return `<article class="mk" data-key="${esc(m.key)}">
+<div class="mk-head">
+<span class="mk-verb">${esc(v.i)}</span>
+<span class="mk-zh">${esc(v.z)}</span>
+<span class="mk-badge">错 ${m.n} 次</span>
+</div>
+<p class="mk-q">${TENSES[m.t]} · ${esc(PERS[m.p][0])}（${esc(PERS[m.p][1])}）</p>
+<p class="mk-ans">正确答案 <b>${esc(correct)}</b></p>
+${wrongs?`<p class="mk-wrong">错误写法：${wrongs}</p>`:""}
+<div class="mk-foot">
+<span class="mk-meta">最近错误 ${fmtTime(m.last)}${m.ok?` · 已答对 ${m.ok} 次`:""}</span>
+<span class="mk-actions">
+<button type="button" class="mini" data-act="practice">练这题</button>
+<button type="button" class="mini" data-act="del">移除</button>
+</span>
+</div>
+</article>`;
+  }).join("");
+}
+$("mistakeList").addEventListener("click",e=>{
+  const btn=e.target.closest("button");
+  if(!btn) return;
+  const act=btn.dataset.act;
+  if(act==="goPractice"){showView("practice");return}
+  if(act==="clearAll"){
+    if(confirm("确定清空全部错题吗？此操作不可恢复。")) clearMistakes();
+    return;
+  }
+  const art=btn.closest(".mk");
+  if(!art) return;
+  const key=art.dataset.key;
+  if(act==="del") removeMistake(key);
+  else if(act==="practice"){
+    const m=findMistake(key);
+    if(m) drill.jumpTo(m);
+  }
+});
+
+/* ================= 变位总表 ================= */
+const GROUPS=[
+  {g:1,irr:false,title:"第一变位 · -ar 规则动词",desc:"词干不变，只加 -ar 的规则词尾。"},
+  {g:1,irr:true,title:"第一变位 · -ar 不规则动词",desc:"含词根变化（e→ie / o→ue）、拼写变化（gu / qu / c）与强不规则动词。"},
+  {g:2,irr:false,title:"第二变位 · -er 规则动词",desc:"词干不变，只加 -er 的规则词尾。"},
+  {g:2,irr:true,title:"第二变位 · -er 不规则动词",desc:"含词根变化、-go / -zco 型第一人称、拼写变化、特殊过去时与将来时词干。"},
+  {g:3,irr:false,title:"第三变位 · -ir 规则动词",desc:"词干不变，只加 -ir 的规则词尾。"},
+  {g:3,irr:true,title:"第三变位 · -ir 不规则动词",desc:"含词根变化、-go 型第一人称、特殊过去时与将来时词干。"}
+];
+function countGroup(g,irr){return V.filter(v=>CLS[v.i].g===g&&!!CLS[v.i].irr===!!irr).length}
+
+function renderTables(){
+  const root=$("tableRoot");
+  const nIrr=V.filter(v=>CLS[v.i].irr).length;
+  let html=`<p class="legend">共 ${V.length} 个动词：第一变位 -ar ${countGroup(1,false)+countGroup(1,true)} 个（规则 ${countGroup(1,false)} / 不规则 ${countGroup(1,true)}）、第二变位 -er ${countGroup(2,false)+countGroup(2,true)} 个（规则 ${countGroup(2,false)} / 不规则 ${countGroup(2,true)}）、第三变位 -ir ${countGroup(3,false)+countGroup(3,true)} 个（规则 ${countGroup(3,false)} / 不规则 ${countGroup(3,true)}）；其中不规则动词 ${nIrr} 个。</p>
+<p class="legend">每格 6 行，依次为 <b>yo / tú / él·ella·usted / nosotros / vosotros / ellos·ellas·ustedes</b>。<span class="irr">橙红色加粗</span>表示该形式与规则变位不同（词根变化、特殊形式或拼写变化）；「—」表示该人称没有命令式。</p>`;
+
+  GROUPS.forEach(grp=>{
+    const list=V.filter(v=>CLS[v.i].g===grp.g&&!!CLS[v.i].irr===grp.irr).sort((a,b)=>a.i.localeCompare(b.i,"es"));
+    html+=`<section class="sec"><h2>${grp.title} <span>（${list.length} 个）</span></h2><p>${grp.desc}</p>
+<div class="tbl-scroll"><table class="t"><thead><tr><th>动词</th><th>释义</th><th>类型 / 要点</th>${TENSE_KEYS.map(t=>`<th>${TENSES[t]}</th>`).join("")}</tr></thead><tbody>`;
+    list.forEach(v=>{
+      const c=CLS[v.i];
+      const tags=c.types.map(t=>`<span class="chip${c.irr?" irr":""}">${esc(t)}</span>`).join("");
+      const cells=TENSE_KEYS.map(t=>{
+        const forms=v.f[t];
+        return `<td><div class="cell">`+forms.map((f,i)=>{
+          if(f==null) return `<span class="nul" title="该人称无命令式">—</span>`;
+          const bad=DEV[v.i][t][i]?" irr":"";
+          return `<span class="${bad.trim()}" title="${esc(PERS[i][0])}">${esc(f)}</span>`;
+        }).join("")+`</div></td>`;
+      }).join("");
+      html+=`<tr><td><b>${esc(v.i)}</b></td><td>${esc(v.z)}</td><td>${tags}${c.note?`<span class="tags-note">${esc(c.note)}</span>`:""}</td>${cells}</tr>`;
+    });
+    html+=`</tbody></table></div></section>`;
+  });
+
+  const typeRows=TYPE_ORDER.map(t=>{
+    const verbs=V.filter(v=>CLS[v.i].types.includes(t));
+    return `<tr><td><b>${esc(t)}</b></td><td>${verbs.length}</td><td>${verbs.map(v=>`<span class="chip">${esc(v.i)}</span>`).join("")}</td><td class="tags-note">${esc(TYPE_DESC[t]||"")}</td></tr>`;
+  }).join("");
+  html+=`<section class="sec"><h2>不规则动词类型汇总 <span>（${nIrr} 个）</span></h2>
+<p>同一个动词常同时属于多种类型（例如 tener 兼具 e→ie、-go、特殊过去时、特殊将来时），下表按类型交叉统计。</p>
+<div class="tbl-scroll"><table class="t types"><thead><tr><th>类型</th><th>数量</th><th>动词</th><th>特点</th></tr></thead><tbody>${typeRows}</tbody></table></div></section>`;
+
+  root.innerHTML=html;
+}
+
+/* ================= 视图切换 ================= */
+const VIEWS=["practice","mistakes","drill","table"];
+function syncDrill(){
+  if(!mistakes.length){drill.setEmpty(true);drill.updateScore();return}
+  const c=drill.current();
+  if(!c||!findMistake(c.key)) drill.next(false);
+  else{drill.setEmpty(false);drill.updateScore()}
+}
+function showView(name,opts){
+  const o=opts||{};
+  if(!VIEWS.includes(name)) name="practice";
+  VIEWS.forEach(v=>{
+    const panel=$("panel-"+v),tab=document.querySelector('.tab[data-view="'+v+'"]');
+    panel.hidden=v!==name;
+    tab.setAttribute("aria-selected",String(v===name));
+    tab.tabIndex=v===name?0:-1;
+  });
+  document.body.dataset.view=name==="table"?"table":"";
+  if(name==="mistakes") renderMistakes();
+  if(name==="drill"&&o.sync!==false) syncDrill();
+  if(name==="table") renderTables();
+  prefs.view=name;savePrefs();
+  const ae=document.activeElement;
+  if(ae&&ae.tagName==="INPUT"&&ae.type==="text") ae.blur();
+  if(o.scroll!==false) window.scrollTo({top:0,behavior:"auto"});
+}
+document.querySelectorAll(".tab").forEach(tab=>{
+  tab.addEventListener("click",()=>showView(tab.dataset.view));
+});
+document.querySelector(".tabs").addEventListener("keydown",e=>{
+  if(e.key!=="ArrowLeft"&&e.key!=="ArrowRight") return;
+  const list=[...document.querySelectorAll(".tab")];
+  const i=list.indexOf(document.activeElement);
+  if(i<0) return;
+  e.preventDefault();
+  const target=list[(i+(e.key==="ArrowRight"?1:-1)+list.length)%list.length];
+  target.focus();
+  showView(target.dataset.view);
+});
+
+/* ================= 启动 ================= */
+renderTables();
+renderMistakes();
+refreshCount();
+practiceQuiz.next(false);
+drill.setEmpty(true);
+showView(prefs.view,{scroll:false});
+</script>
+</body>
+</html>
